@@ -17,9 +17,24 @@ import {
 	Avatar,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CarRentalIcon from '@mui/icons-material/CarRental';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 function Sidebar() {
 	return (
-		<Stack className="sidebar-container" padding={2}>
+		<Stack className="sidebar-container" padding={2} sx={{bgcolor:'#FFF'}}>
+			<Typography
+				align="center"
+				variant="h4"
+				sx={{
+					color: variables.maincolor,
+					fontFamily: 'Orbitron',
+					paddingBottom:'8px',
+				}}
+			>
+				EasyCar
+			</Typography>
 			<Stack direction="row" alignItems={'center'} spacing={1} alignSelf="center">
 				<Avatar
 					alt="Remy Sharp"
@@ -43,10 +58,11 @@ function Sidebar() {
 					fontWeight: 'bold',
 					height: '45px',
 				}}
+				startIcon={<AccountCircleIcon/>}
 			>
 				QUẢN LÝ TÀI KHOẢN
 			</Button>
-            <Divider  />
+			<Divider />
 			<Button
 				component={Link}
 				to="/profile/info"
@@ -56,10 +72,11 @@ function Sidebar() {
 					fontWeight: 'bold',
 					height: '45px',
 				}}
+				startIcon={<HowToRegIcon/>}
 			>
-				QUẢN LÝ YÊU CẦU XÁC THỰC TÀI KHOẢN
+				QUẢN LÝ XÁC THỰC TÀI KHOẢN
 			</Button>
-            <Divider  />
+			<Divider />
 			<Button
 				component={Link}
 				to="/profile/info"
@@ -69,10 +86,11 @@ function Sidebar() {
 					fontWeight: 'bold',
 					height: '45px',
 				}}
+				startIcon={<TextSnippetIcon/>}
 			>
 				QUẢN LÝ ĐĂNG KÝ XE CHO THUÊ
 			</Button>
-            <Divider  />
+			<Divider />
 			<Button
 				component={Link}
 				to="/profile/info"
@@ -82,6 +100,7 @@ function Sidebar() {
 					fontWeight: 'bold',
 					height: '45px',
 				}}
+				startIcon={<CarRentalIcon/>}
 			>
 				QUẢN LÝ XE CHO THUÊ
 			</Button>

@@ -24,6 +24,12 @@ function SigninPage() {
 	return (
 		<Box height='100vh'>
 			<Stack alignItems="center" justifyContent="center" className="signin-container" height="100%" spacing={2}>
+				<Typography variant="h2"  sx={{
+						color: variables.maincolor,
+						fontFamily: 'Orbitron',
+					}}>
+					EasyCar
+				</Typography>
 				<Typography
 					fontSize="1.75rem"
 					fontWeight="bold"

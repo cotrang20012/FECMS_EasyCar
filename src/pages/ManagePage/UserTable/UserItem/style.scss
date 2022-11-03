@@ -1,0 +1,11 @@
+@import '../../../../assets/variable';
+
+.bold {
+    font-weight: bolder;
+    color: $main-color;
+}
+
+.useritem-container {
+    width: 100%;
+    height: 180px;
+}
