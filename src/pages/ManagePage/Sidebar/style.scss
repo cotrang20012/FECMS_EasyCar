@@ -1,0 +1,8 @@
+@import '../../../assets/variable';
+
+.sidebar-container {
+    height: 100vh;
+    width: 320px;
+    border-right: 1px solid;
+    border-color: $main-color;
+}
