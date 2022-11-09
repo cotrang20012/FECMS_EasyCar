@@ -1,3 +1,4 @@
+import CarRegisterTable from "pages/ManagePage/CarRegisterTable";
 import UserTable from "pages/ManagePage/UserTable";
 import VerifyTable from "pages/ManagePage/VerifyTable";
 import React from "react";
@@ -14,7 +15,8 @@ function ConfigRoute() {
       <Route path="dashboard" element={<ManagePage/>} >
         <Route index element={<UserTable />}/>
         <Route path="user" element={<UserTable />}/>
-        <Route path="verifyrequest" element={<VerifyTable/>}/>
+        <Route path="verify" element={<VerifyTable/>}/>
+        <Route path="carregister" element={<CarRegisterTable/>}/>
       </Route>
     </Routes>
   );

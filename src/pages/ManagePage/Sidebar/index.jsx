@@ -65,7 +65,7 @@ function Sidebar() {
 			<Divider />
 			<Button
 				component={Link}
-				to="/dashboard/verifyrequest"
+				to="/dashboard/verify"
 				size="medium"
 				className="sidebar-container__button"
 				sx={{
