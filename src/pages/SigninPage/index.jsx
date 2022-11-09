@@ -30,15 +30,6 @@ function SigninPage() {
 					}}>
 					EasyCar
 				</Typography>
-				<Typography
-					fontSize="1.75rem"
-					fontWeight="bold"
-					sx={{
-						color: variables.maincolor,
-					}}
-				>
-					ĐĂNG NHẬP TÀI KHOẢN
-				</Typography>
                 <TextField
 							placeholder="Nhập email"
 							variant="outlined"

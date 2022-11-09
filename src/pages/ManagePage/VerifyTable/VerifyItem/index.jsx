@@ -6,9 +6,9 @@ import {
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
 import './style.scss';
-function UserItem() {
-	return (
-		<Paper className="useritem-container" variant={'outlined'} sx={{ borderColor: variables.maincolor }}>
+function VerifyItem() {
+  return (
+    <Paper className="verifyitem-container" variant={'outlined'} sx={{ borderColor: variables.maincolor }}>
 			<Stack sx={{ height: '164px' }} direction="row" padding={1} spacing={2}>
 				<Avatar
 					alt="Remy Sharp"
@@ -32,32 +32,22 @@ function UserItem() {
 						<span className="bold">Địa Chỉ:</span> 153/24 Lê Hoàng Phái, Phường 17, TP.Hồ Chí Minh
 					</Typography>
 				</Stack>
-				<Stack paddingTop="6px">
+				<Stack spacing={1} paddingTop="6px">
 					<Typography>
-						<span className="bold">TRẠNG THÁI TÀI KHOẢN</span>
+						<span className="bold">THÔNG TIN GPLX</span>
 					</Typography>
 					<Typography>
-						<span className="bold">Kích hoạt:</span>{' '}
-						{true ? (
-							<CheckCircleRoundedIcon fontSize="medium" className="useritem-container__icon green" />
-						) : (
-							<CancelRoundedIcon fontSize="medium" className="useritem-container__icon red" />
-						)}
+						<span className="bold">Số GPLX:</span> 123456798111
 					</Typography>
-					<Typography>
-						<span className="bold">Xác thực:</span>{' '}
-						{true ? (
-							<CheckCircleRoundedIcon fontSize="medium" className="useritem-container__icon green" />
-						) : (
-							<CancelRoundedIcon fontSize="medium" className="useritem-container__icon red" />
-						)}
+                    <Typography>
+						<span className="bold">Ngày sinh:</span> 04/02/2001
 					</Typography>
 				</Stack>
 				<Stack flex={1} justifyContent={"center"} spacing={1}>
 					<Button
 						variant="outlined"
 						size="medium"
-						className="useritem-container__details"
+						className="verifyitem-container__details"
 						sx={{
 							borderColor: variables.textgreencolor,
 							color: variables.textgreencolor,
@@ -68,38 +58,10 @@ function UserItem() {
 					>
 						CHI TIẾT
 					</Button>
-					<Button
-						variant="outlined"
-						size="medium"
-						className="useritem-container__block"
-						sx={{
-							borderColor: variables.orangecolor,
-							color: variables.orangecolor,
-							fontWeight: 'bold',
-							width: '150px ',
-							alignSelf: 'center',
-						}}
-					>
-						KHOÁ
-					</Button>
-					<Button
-						variant="outlined"
-						size="medium"
-						className="useritem-container__delete"
-						sx={{
-							borderColor: variables.redcolor,
-							color: variables.redcolor,
-							fontWeight: 'bold',
-							width: '150px ',
-							alignSelf: 'center',
-						}}
-					>
-						XOÁ
-					</Button>
 				</Stack>
 			</Stack>
 		</Paper>
-	);
+  )
 }
 
-export default UserItem;
+export default VerifyItem

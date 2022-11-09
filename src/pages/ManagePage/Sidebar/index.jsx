@@ -51,7 +51,7 @@ function Sidebar() {
 			<Divider sx={{ paddingTop: '10px' }} />
 			<Button
 				component={Link}
-				to="/profile/info"
+				to="/dashboard/user"
 				size="medium"
 				className="sidebar-container__button"
 				sx={{
@@ -65,7 +65,7 @@ function Sidebar() {
 			<Divider />
 			<Button
 				component={Link}
-				to="/profile/info"
+				to="/dashboard/verifyrequest"
 				size="medium"
 				className="sidebar-container__button"
 				sx={{
@@ -79,7 +79,7 @@ function Sidebar() {
 			<Divider />
 			<Button
 				component={Link}
-				to="/profile/info"
+				to="/dashboard/carregister"
 				size="medium"
 				className="sidebar-container__button"
 				sx={{
@@ -93,7 +93,7 @@ function Sidebar() {
 			<Divider />
 			<Button
 				component={Link}
-				to="/profile/info"
+				to="/dashboard/car"
 				size="medium"
 				className="sidebar-container__button"
 				sx={{

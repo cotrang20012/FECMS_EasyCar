@@ -1,25 +1,12 @@
-import * as React from 'react';
-import './style.scss';
-import 'assets/style.scss';
-import variables from 'assets/_variable.scss';
+import SearchIcon from '@mui/icons-material/Search';
 import {
 	Box,
-	Button,
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	Divider,
-	IconButton,
-	InputAdornment,
-	Stack,
-	TextField,
-	Typography,
-	Avatar,
-	Paper,
-	Pagination
+	Button, Divider, InputAdornment, Pagination, Paper, Stack,
+	TextField
 } from '@mui/material';
-import { Link } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
+import 'assets/style.scss';
+import variables from 'assets/_variable.scss';
+import './style.scss';
 import UserItem from './UserItem';
 
 function UserTable() {
@@ -43,6 +30,8 @@ function UserTable() {
                     <Button variant="contained">TÌM KIẾM</Button>
                     </Stack>
                     <Divider/>
+					<UserItem/>
+					<UserItem/>
 					<UserItem/>
 					<Pagination count={10} shape="rounded" sx={{alignSelf:'center', justifySelf:'flex-end'}}/>
 				</Stack>

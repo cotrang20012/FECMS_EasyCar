@@ -17,13 +17,14 @@ import {
 } from '@mui/material';
 import Sidebar from './Sidebar';
 import UserTable from './UserTable';
+import { Outlet } from 'react-router-dom';
 function ManagePage() {
   return (
     <Box height='100vh'>
         <Stack direction='row' className="manage-container" height="100%" spacing={2}>
             <Sidebar/>
 			<Box alignSelf={'center'} justifySelf={'center'}>
-				<UserTable/>
+				<Outlet/>
 			</Box>
         </Stack>
     </Box>
