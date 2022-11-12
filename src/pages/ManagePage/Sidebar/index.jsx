@@ -21,6 +21,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 function Sidebar() {
 	return (
 		<Stack className="sidebar-container" padding={2} sx={{bgcolor:'#FFF'}}>
@@ -35,7 +36,8 @@ function Sidebar() {
 			>
 				EasyCar
 			</Typography>
-			<Stack direction="row" alignItems={'center'} spacing={1} alignSelf="center">
+			<Divider />
+			<Stack direction="row" alignItems={'center'} spacing={1} alignSelf="center" paddingTop={1}>
 				<Avatar
 					alt="Remy Sharp"
 					src="https://n1-astg.mioto.vn/g/2022/08/02/21/f4VeE-IlZhkA073LQ7xv_A.jpg"
@@ -103,6 +105,20 @@ function Sidebar() {
 				startIcon={<CarRentalIcon/>}
 			>
 				QUẢN LÝ XE CHO THUÊ
+			</Button>
+			<Divider />
+			<Button
+				component={Link}
+				to="/dashboard/withdraw"
+				size="medium"
+				className="sidebar-container__button"
+				sx={{
+					fontWeight: 'bold',
+					height: '45px',
+				}}
+				startIcon={<AttachMoneyIcon/>}
+			>
+				YÊU CẦU RÚT TIỀN
 			</Button>
 		</Stack>
 	);

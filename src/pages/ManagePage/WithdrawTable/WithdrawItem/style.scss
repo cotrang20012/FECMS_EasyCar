@@ -1,0 +1,54 @@
+@import '../../../../assets/variable';
+
+
+.red {
+    color: red;
+}
+
+.green {
+    color:$text-green-color;
+}
+
+.orange {
+    color: $orange-color !important;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.withdrawitem-container {
+    width: 100%;
+    height: 180px;
+
+    &__icon {
+        position: relative;
+        top: 6px;
+    }
+
+    &__details:hover {
+        color: white;
+        background-color: $text-green-color !important;
+        border-color: $text-green-color !important;
+    }
+
+    &__block:hover {
+        color: white;
+        background-color: $orange-color !important; 
+        border-color: $orange-color !important;
+    }
+
+    &__delete:hover {
+        color: white;
+        background-color: $red-color !important; 
+        border-color: $red-color !important;
+    }
+
+    &__money {
+        text-align: center;
+        letter-spacing: 0.6px;
+        color: $text-green-color;
+        font-weight: bold !important;
+        font-size: 22px !important;
+    }
+}

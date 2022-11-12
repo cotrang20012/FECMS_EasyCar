@@ -1,1 +1,9 @@
 @import '../../../../assets/variable';
+
+.carregisteritem-container {
+    &__details:hover {
+        color: white;
+        background-color: $text-green-color !important;
+        border-color: $text-green-color !important;
+    }
+}
