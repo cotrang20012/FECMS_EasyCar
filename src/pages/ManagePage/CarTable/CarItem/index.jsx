@@ -5,8 +5,11 @@ import {
 } from '@mui/material';
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
+import CarDetailDialog from 'components/CarDetailDialog';
 import './style.scss';
+import * as React from 'react';
 function CarItem() {
+  const [openDialog, setOpenDialog] = React.useState(false);
   return (
     <Paper className="caritem-container" variant={'outlined'} sx={{ borderColor: variables.maincolor }}>
     <Stack sx={{ height: '164px' }} direction="row" padding={1} spacing={2}>
@@ -64,6 +67,7 @@ function CarItem() {
           variant="outlined"
           size="medium"
           className="caritem-container__details"
+          onClick={() => setOpenDialog(true)}
           sx={{
             borderColor: variables.textgreencolor,
             color: variables.textgreencolor,
@@ -104,6 +108,7 @@ function CarItem() {
 					</Button>
       </Stack>
     </Stack>
+    <CarDetailDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
   </Paper>
   )
 }

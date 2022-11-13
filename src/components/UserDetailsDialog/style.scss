@@ -1,0 +1,33 @@
+@import '../../assets/variable';
+
+.title {
+    color: $main-lighter-color;
+    font-weight: bold;
+}
+.userdetails-container {
+    &__tilte {
+        color: $main-color;
+        font-weight: bold !important;
+        font-size: 22px !important;
+    }
+
+    &__icon {
+        position: relative;
+        top: 5px;
+    }
+
+    &__verifystatus {
+        color: $main-lighter-color;
+    }
+
+    &__text {
+        font-size: 18px !important;
+    }
+
+    &__img {
+        height: auto; 
+        width: auto; 
+        max-height: 420px; 
+        max-width: 420px;
+    }
+}

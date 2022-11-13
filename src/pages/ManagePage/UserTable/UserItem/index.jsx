@@ -5,8 +5,11 @@ import {
 } from '@mui/material';
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
+import UserDetailsDialog from 'components/UserDetailsDialog';
 import './style.scss';
+import * as React from 'react'
 function UserItem() {
+	const [openDialog, setOpenDialog] = React.useState(false);
 	return (
 		<Paper className="useritem-container" variant={'outlined'} sx={{ borderColor: variables.maincolor }}>
 			<Stack sx={{ height: '164px' }} direction="row" padding={1} spacing={2}>
@@ -58,6 +61,7 @@ function UserItem() {
 						variant="outlined"
 						size="medium"
 						className="useritem-container__details"
+						onClick={() => setOpenDialog(true)}
 						sx={{
 							borderColor: variables.textgreencolor,
 							color: variables.textgreencolor,
@@ -98,6 +102,7 @@ function UserItem() {
 					</Button>
 				</Stack>
 			</Stack>
+			<UserDetailsDialog openDialog={openDialog} setOpenDialog={setOpenDialog}/>
 		</Paper>
 	);
 }

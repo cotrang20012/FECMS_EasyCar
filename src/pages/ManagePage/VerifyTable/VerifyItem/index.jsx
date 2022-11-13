@@ -1,14 +1,15 @@
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import {
-	Avatar, Button, Paper, Stack, Typography
-} from '@mui/material';
+import { Avatar, Button, Paper, Stack, Typography } from '@mui/material';
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
+import VerifyDialog from 'components/VerifyDialog';
 import './style.scss';
+import * as React from 'react';
 function VerifyItem() {
-  return (
-    <Paper className="verifyitem-container" variant={'outlined'} sx={{ borderColor: variables.maincolor }}>
+	const [openDialog, setOpenDialog] = React.useState(false);
+	return (
+		<Paper className="verifyitem-container" variant={'outlined'} sx={{ borderColor: variables.maincolor }}>
 			<Stack sx={{ height: '164px' }} direction="row" padding={1} spacing={2}>
 				<Avatar
 					alt="Remy Sharp"
@@ -39,15 +40,16 @@ function VerifyItem() {
 					<Typography>
 						<span className="bold">Số GPLX:</span> 123456798111
 					</Typography>
-                    <Typography>
+					<Typography>
 						<span className="bold">Ngày sinh:</span> 04/02/2001
 					</Typography>
 				</Stack>
-				<Stack flex={1} justifyContent={"center"} spacing={1}>
+				<Stack flex={1} justifyContent={'center'} spacing={1}>
 					<Button
 						variant="outlined"
 						size="medium"
 						className="verifyitem-container__details"
+						onClick={() => {setOpenDialog(true)}}
 						sx={{
 							borderColor: variables.textgreencolor,
 							color: variables.textgreencolor,
@@ -60,8 +62,9 @@ function VerifyItem() {
 					</Button>
 				</Stack>
 			</Stack>
+			<VerifyDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
 		</Paper>
-  )
+	);
 }
 
-export default VerifyItem
+export default VerifyItem;
