@@ -8,7 +8,6 @@ import {
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
 import './style.scss';
-import ConfirmDialog from 'components/ConfirmDialog';
 import * as React from 'react';
 import apiRegister from 'apis/apiRegister';
 import { toast } from 'react-toastify';
@@ -144,8 +143,8 @@ function RegisterDetailDialog(props) {
 					</Typography>
 					<Typography className="register-container__text">
 						<pre style={{ fontFamily: 'inherit' }}>
-						<span className="title">Điều khoản thuê xe:</span>
-						{registerdata.rentterm}
+							<span className="title">Điều khoản thuê xe:</span>
+							{registerdata.rentterm}
     					</pre> 
 					</Typography>
 					<Typography align="center" className="register-container__text">

@@ -5,6 +5,10 @@ import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
 import numWithDot from 'utils/numWithDot';
 import './style.scss';
+import { toast } from 'react-toastify';
+import ConfirmDialog from 'components/ConfirmDialog';
+import * as React from 'react';
+import apiWithdraw from 'apis/apiWithdraw';
 
 function WithdrawItem(props) {
 	const {item} = props
@@ -18,6 +22,77 @@ function WithdrawItem(props) {
 				return <span className="red status">TỪ CHỐI</span>;
 		}
 	};
+	const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
+	const [handleApi, setHandleApi] = React.useState(()=> () => {handleAccept()})
+	const [text, setText] = React.useState('')
+	const handleAccept = () => {
+		const params = {
+			id: item._id
+		}
+
+		apiWithdraw.acceptWithdraw(params).then(res => {
+			toast.success('Chấp nhận yêu cầu rút tiền thành công!!!')
+			setTimeout(() => {window.location.reload(false)},2000)
+		}).catch(err => toast.error(err.response.data.message))
+	}
+
+	const handleDeny = () => {
+		const params = {
+			id: item._id
+		}
+	
+		apiWithdraw.denyWithdraw(params).then(res => {
+			toast.success('Từ chối yêu cầu rút tiền thành công!!!')
+			setTimeout(() => {window.location.reload(false)},2000)
+		}).catch(err => toast.error(err.response.data.message))
+	}
+	const handleStatus = (status) => {
+		if (status == 0) {
+			return (
+				<>
+				<Button
+						variant="outlined"
+						size="medium"
+						className="withdrawitem-container__details"
+						onClick={() => {
+							setText('Bạn có muốn chấp nhận yêu cầu rút tiền này ?')
+							setHandleApi(() => () => {handleAccept()})
+							setOpenConfirmDialog(true)
+						}}
+						sx={{
+							borderColor: variables.textgreencolor,
+							color: variables.textgreencolor,
+							fontWeight: 'bold',
+							width: '150px ',
+							alignSelf: 'center',
+						}}
+					>
+						CHẤP NHẬN
+					</Button>
+					<Button
+						variant="outlined"
+						size="medium"
+						className="withdrawitem-container__block"
+						onClick={() => {
+							setText('Bạn có muốn từ chối yêu cầu rút tiền này ?')
+							setHandleApi(() => () => {handleDeny()})
+							setOpenConfirmDialog(true)
+						}}
+						sx={{
+							borderColor: variables.orangecolor,
+							color: variables.orangecolor,
+							fontWeight: 'bold',
+							width: '150px ',
+							alignSelf: 'center',
+						}}
+					>
+						TỪ CHỐI
+					</Button>
+				</>
+			)
+		}
+		return (<></>)
+	}
 	return (
 		<Paper className="withdrawitem-container" variant={'outlined'} sx={{ borderColor: variables.maincolor }}>
 			<Stack sx={{ height: '164px' }} direction="row" padding={1} spacing={2}>
@@ -59,36 +134,10 @@ function WithdrawItem(props) {
 				</Stack>
 				<Stack flex={1} justifyContent={'center'} spacing={1}>
 					<Typography className="withdrawitem-container__money">{numWithDot(item.amount)} đ</Typography>
-					<Button
-						variant="outlined"
-						size="medium"
-						className="withdrawitem-container__details"
-						sx={{
-							borderColor: variables.textgreencolor,
-							color: variables.textgreencolor,
-							fontWeight: 'bold',
-							width: '150px ',
-							alignSelf: 'center',
-						}}
-					>
-						CHẤP NHẬN
-					</Button>
-					<Button
-						variant="outlined"
-						size="medium"
-						className="withdrawitem-container__block"
-						sx={{
-							borderColor: variables.orangecolor,
-							color: variables.orangecolor,
-							fontWeight: 'bold',
-							width: '150px ',
-							alignSelf: 'center',
-						}}
-					>
-						TỪ CHỐI
-					</Button>
+					{handleStatus(item.status)}
 				</Stack>
 			</Stack>
+			{openConfirmDialog && <ConfirmDialog openConfirmDialog={openConfirmDialog} setOpenConfirmDialog={setOpenConfirmDialog} text={text} handleApi={handleApi}/>}
 		</Paper>
 	);
 }

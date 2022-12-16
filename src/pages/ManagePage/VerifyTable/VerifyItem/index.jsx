@@ -63,7 +63,7 @@ function VerifyItem(props) {
 					</Button>
 				</Stack>
 			</Stack>
-			<VerifyDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+			{openDialog && <VerifyDialog openDialog={openDialog} setOpenDialog={setOpenDialog} id={item._id}/>}
 		</Paper>
 	);
 }

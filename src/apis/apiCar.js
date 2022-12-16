@@ -11,5 +11,20 @@ const apiCar = {
         return res.data;
     },
 
+    postponeCar: async (params) => {
+        const res = await axiosClientWithToken.post(`/admin/postpone-vehicle/${params.id}`)
+        return res.data;
+    },
+
+    resumeCar: async (params) => {
+        const res = await axiosClientWithToken.post(`/admin/resume-vehicle/${params.id}`)
+        return res.data;
+    },
+
+    deleteCar: async (params) => {
+        const res = await axiosClientWithToken.delete(`/admin/delete-vehicle/${params.id}`)
+        return res.data;
+    },
+
 }
 export default apiCar;

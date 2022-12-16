@@ -1,7 +1,5 @@
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import {
-	Avatar, Button, Paper, Stack, Typography, Divider
+	Button, Paper, Stack, Typography, Divider
 } from '@mui/material';
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';

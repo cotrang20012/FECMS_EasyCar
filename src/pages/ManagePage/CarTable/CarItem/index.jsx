@@ -1,16 +1,52 @@
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import {
-	Avatar, Button, Paper, Stack, Typography, Divider
+  Button, Paper, Stack, Typography, Divider
 } from '@mui/material';
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
 import CarDetailDialog from 'components/CarDetailDialog';
 import './style.scss';
 import * as React from 'react';
+import ConfirmDialog from 'components/ConfirmDialog';
+import { toast } from 'react-toastify';
+import apiCar from 'apis/apiCar';
 function CarItem(props) {
   const {item} = props
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
+	const [handleApi, setHandleApi] = React.useState(()=> () => {handlePostpone()})
+	const [text, setText] = React.useState('')
+	const handlePostpone = () => {
+		const params = {
+			id: item._id
+		}
+		apiCar.postponeCar(params).then(res => {
+			toast.success('Tạm dừng cho thuê xe thành công!!!')
+			setTimeout(() => {window.location.reload(false)},2000)
+		}).catch(err => toast.error(err.response.data.message))
+	}
+
+	const handleResume = () => {
+		const params = {
+			id: item._id
+		}
+    
+		apiCar.resumeCar(params).then(res => {
+			toast.success('Tiếp tục cho thuê xe thành công!!!')
+			setTimeout(() => {window.location.reload(false)},2000)
+		}).catch(err => toast.error(err.response.data.message))
+	}
+
+	const handleDelete = () => {
+		const params = {
+			id: item._id
+		}
+    
+		apiCar.deleteCar(params).then(res => {
+			toast.success('Xoá tài khoản thành công!!!')
+			setTimeout(() => {window.location.reload(false)},2000)
+		}).catch(err => toast.error(err.response.data.message))
+	}
+
   const transmission = (transmissiontype) => {
 		switch (transmissiontype) {
 			case 'AUTO':
@@ -30,6 +66,53 @@ function CarItem(props) {
 				return 'Điện';
 		}
 	};
+
+  const handleStatus = (status) => {
+		switch (status) {
+			case 2:
+				return (<Button
+          variant="outlined"
+          size="medium"
+          className="caritem-container__block"
+          onClick={() => {
+            setText('Bạn có muốn tạm dừng cho thuê xe này ?')
+            setHandleApi(() => () => {handlePostpone()})
+            setOpenConfirmDialog(true)
+          }}
+          sx={{
+            borderColor: variables.orangecolor,
+            color: variables.orangecolor,
+            fontWeight: 'bold',
+            width: '150px ',
+            alignSelf: 'center',
+          }}
+        >
+          TẠM DỪNG
+        </Button>)
+			case 1:
+				return ( <Button
+          variant="outlined"
+          size="medium"
+          className="caritem-container__block"
+          onClick={() => {
+            setText('Bạn có muốn tiếp tục cho thuê xe này ?')
+            setHandleApi(() => () => {handleResume()})
+            setOpenConfirmDialog(true)
+          }}
+          sx={{
+            borderColor: variables.orangecolor,
+            color: variables.orangecolor,
+            fontWeight: 'bold',
+            width: '150px ',
+            alignSelf: 'center',
+          }}
+        >
+          TIẾP TỤC
+        </Button>)
+			case 0:
+				return (<></>)
+		}
+	}
   return (
     <Paper className="caritem-container" variant={'outlined'} sx={{ borderColor: variables.maincolor }}>
     <Stack sx={{ height: '164px' }} direction="row" padding={1} spacing={2}>
@@ -98,37 +181,30 @@ function CarItem(props) {
         >
           CHI TIẾT
         </Button>
+        {handleStatus(item.status)}
         <Button
-						variant="outlined"
-						size="medium"
-						className="caritem-container__block"
-						sx={{
-							borderColor: variables.orangecolor,
-							color: variables.orangecolor,
-							fontWeight: 'bold',
-							width: '150px ',
-							alignSelf: 'center',
-						}}
-					>
-						TẠM DỪNG
-					</Button>
-					<Button
-						variant="outlined"
-						size="medium"
-						className="caritem-container__delete"
-						sx={{
-							borderColor: variables.redcolor,
-							color: variables.redcolor,
-							fontWeight: 'bold',
-							width: '150px ',
-							alignSelf: 'center',
-						}}
-					>
-						XOÁ
-					</Button>
-      </Stack>
+          variant="outlined"
+          size="medium"
+          className="caritem-container__delete"
+          onClick={() => {
+            setText('Bạn có muốn xoá xe này ?')
+            setHandleApi(() => () => {handleDelete()})
+            setOpenConfirmDialog(true)
+          }}
+          sx={{
+            borderColor: variables.redcolor,
+            color: variables.redcolor,
+            fontWeight: 'bold',
+            width: '150px ',
+            alignSelf: 'center',
+          }}
+        >
+          XOÁ
+        </Button>
     </Stack>
-    <CarDetailDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+    </Stack>
+    {openDialog && <CarDetailDialog openDialog={openDialog} setOpenDialog={setOpenDialog} id={item._id}/>}
+    {openConfirmDialog && <ConfirmDialog openConfirmDialog={openConfirmDialog} setOpenConfirmDialog={setOpenConfirmDialog} text={text} handleApi={handleApi}/>}
   </Paper>
   )
 }

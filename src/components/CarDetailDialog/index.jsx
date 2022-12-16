@@ -1,5 +1,4 @@
 import {
-	Button,
 	Dialog,
 	DialogContent, DialogTitle,
 	Stack,
@@ -9,9 +8,13 @@ import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
 import './style.scss';
 import StarIcon from "@mui/icons-material/Star";
+import apiCar from 'apis/apiCar';
+import * as React from 'react';
+import { toast } from 'react-toastify';
 
 function CarDetailDialog(props) {
-    const { openDialog, setOpenDialog } = props;
+    const { openDialog, setOpenDialog, id } = props;
+	const [cardata, setCardata] = React.useState({});
 	const transmission = (transmissiontype) => {
 		switch (transmissiontype) {
 			case 'AUTO':
@@ -31,6 +34,32 @@ function CarDetailDialog(props) {
 				return 'Điện';
 		}
 	};
+
+	const gender = (gender) => {
+		switch(gender) {
+			case 'MALE':
+				return 'Nam';
+			case 'FEMALE':
+				return 'Nữ';
+			default :
+				return 'Nam';
+		}
+	}
+
+	React.useEffect(() => {
+		const getCarDetail = () => {
+			const params = {
+				id: id,
+			}
+			apiCar.getCarDetail(params).then((result) => {
+				setCardata(result.data)
+			}).catch((err) => {
+				setOpenDialog(false)
+				toast.error(err.response.data.message);
+			});
+		}
+		getCarDetail()
+	},[])
   return (
     <Dialog open={openDialog} maxWidth="lg" fullWidth onClose={() => setOpenDialog(false)} className="caritem-container">
 			<DialogTitle>
@@ -42,74 +71,77 @@ function CarDetailDialog(props) {
 				<Stack spacing={1}>
 					<Typography className="caritem-container__tilte">THÔNG TIN CHỦ XE</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Họ và tên:</span> Nguyễn Phúc An
+						<span className="title">Họ và tên:</span> {cardata.ownerId && cardata.ownerId.username}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Email:</span> cotrang2012@gmail.com
+						<span className="title">Email:</span> {cardata.ownerId && cardata.ownerId.email}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Số điện thoại:</span> 0928776640
+						<span className="title">Số điện thoại:</span> {cardata.ownerId && cardata.ownerId.phoneNumber}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Giới tính:</span> Nam
+						<span className="title">Giới tính:</span> {cardata.ownerId && gender(cardata.ownerId.gender)}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Địa chỉ:</span> 153 Lê Hoàng Phái, Phường 17, Quận Gò Vấp
+						<span className="title">Địa chỉ:</span> {cardata.ownerId && cardata.ownerId.location}
 					</Typography>
 					<Typography className="caritem-container__tilte">THÔNG TIN XE</Typography>
                     <Typography className="caritem-container__text">
-						<span className="title">Đánh giá:</span> 5.0<StarIcon
+						<span className="title">Đánh giá:</span> {cardata.rating}<StarIcon
                       htmlColor={variables.mainyellowcolor}
                       fontSize="medium"
                       className="caritem-container__icon"
                     />
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Biển số xe:</span> Mazda
+						<span className="title">Biển số xe:</span> {cardata.licenseplate}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Hãng xe:</span> Mazda
+						<span className="title">Hãng xe:</span> {cardata.brand}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Mẫu xe:</span> CX-3
+						<span className="title">Mẫu xe:</span> {cardata.model}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Năm sản xuất:</span> 2019
+						<span className="title">Năm sản xuất:</span> {cardata.year}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Kiểu xe:</span> SUV-5
+						<span className="title">Kiểu xe:</span> {cardata.type}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Số ghế:</span> 5
+						<span className="title">Số ghế:</span> {cardata.seats}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Truyền động:</span> Tự động
+						<span className="title">Truyền động:</span> {transmission(cardata.transmission)}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Loại nhiên liệu:</span> Xăng
+						<span className="title">Loại nhiên liệu:</span> {fuel(cardata.fueltype)}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Mô tả:</span> Xe mới mua
+						<span className="title">Mô tả:</span> {cardata.description}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Điều khoản thuê xe:</span> Không cho thú cưng
+						<pre style={{ fontFamily: 'inherit' }}>
+							<span className="title">Điều khoản thuê xe:</span>
+							{cardata.rentterm}
+						</pre>
 					</Typography>
 					<Typography align="center" className="caritem-container__text">
 						Ảnh mặt trước
 					</Typography>
-					<img className="caritem-container__img" src='https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2021/p/g/2022/01/06/11/p8dimfuyKkuCDVTBJXllqA.jpg' ></img>
+					<img className="caritem-container__img" src={cardata.vehicleimage && (cardata.vehicleimage[0] ? cardata.vehicleimage[0] : 'https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2021/p/g/2022/01/06/11/p8dimfuyKkuCDVTBJXllqA.jpg')} ></img>
                     <Typography align="center" className="caritem-container__text">
 						Ảnh mặt sau
 					</Typography>
-					<img className="caritem-container__img" src='https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2021/p/g/2022/01/06/11/iot31_kGM2egPW8Y13plRg.jpg' ></img>
+					<img className="caritem-container__img" src={cardata.vehicleimage && (cardata.vehicleimage[1] ? cardata.vehicleimage[1] : 'https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2021/p/g/2022/01/06/11/p8dimfuyKkuCDVTBJXllqA.jpg')} ></img>
                     <Typography align="center" className="caritem-container__text">
 						Ảnh bên trái
 					</Typography>
-					<img className="caritem-container__img" src='https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2021/p/g/2022/01/06/11/ZqO0x5znjDiQmAXm-TZImA.jpg' ></img>
+					<img className="caritem-container__img" src={cardata.vehicleimage && (cardata.vehicleimage[2] ? cardata.vehicleimage[2] : 'https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2021/p/g/2022/01/06/11/p8dimfuyKkuCDVTBJXllqA.jpg')} ></img>
                     <Typography align="center" className="caritem-container__text">
 						Ảnh bên phải
 					</Typography>
-					<img className="caritem-container__img" src='https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2021/p/g/2022/01/06/11/Q4d90YuvqmySKM6antvEhA.jpg' ></img>
+					<img className="caritem-container__img" src={cardata.vehicleimage && (cardata.vehicleimage[3] ? cardata.vehicleimage[3] : 'https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2021/p/g/2022/01/06/11/p8dimfuyKkuCDVTBJXllqA.jpg')} ></img>
 				</Stack>
 			</DialogContent>
 		</Dialog>

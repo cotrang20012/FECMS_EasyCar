@@ -5,8 +5,18 @@ const apiVerify = {
         const res = await axiosClientWithToken.get(`/admin/verify-list?page=${params.page}`)
         return res.data;
     },
-    getUserDetail: async (params) => {
+    getVerifyDetail: async (params) => {
         const res = await axiosClientWithToken.get(`/admin/verify-detail/${params.id}`)
+        return res.data;
+    },
+
+    acceptVerify: async (params) => {
+        const res = await axiosClientWithToken.post(`/admin/accept-verify/${params.id}`)
+        return res.data;
+    },
+
+    denyVerify: async (params) => {
+        const res = await axiosClientWithToken.post(`/admin/deny-verify/${params.id}`)
         return res.data;
     },
 }
