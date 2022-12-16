@@ -5,9 +5,34 @@ import variables from 'assets/_variable.scss';
 import './style.scss';
 import WithdrawItem from './WithdrawItem';
 import * as React from 'react';
+import apiWithdraw from 'apis/apiWithdraw';
 
 function WithdrawTable() {
 	const [status, setStatus] = React.useState('ALL')
+	const [withdrawlist, setWithdrawlist] = React.useState([]);
+	const [page,setPage] = React.useState(1);
+	const [totalpage, setTotalpage] = React.useState(1);
+	const handleChange = (event, value) => {
+		setPage(value);
+	};
+
+	React.useEffect(() => {
+		const getWithdrawList = () => {
+			const params = {
+				page: page
+			}
+
+			apiWithdraw.getWithdrawList(params).then((result) => {
+				setWithdrawlist(result.data)
+				if(result.totalPage != 0) {
+					setTotalpage(result.totalPage)
+				}
+			}).catch((err) => {
+				
+			});
+		}
+		getWithdrawList();
+	},[page])
 	return (
 		<Box className="withdrawtable-container">
 			<Paper elevation={3} sx={{ width: '100%', height: '100%' }}>
@@ -34,10 +59,9 @@ function WithdrawTable() {
 					<Chip label="CHỜ DUYỆT" sx={{bgcolor:variables.orangecolor, color:'white',fontWeight:'bold'}} />
 					<Chip label="TỪ CHỐI"  sx={{bgcolor:variables.redcolor, color:'white',fontWeight:'bold'}}/>
 					</Stack>
-                    <WithdrawItem/>
-					<WithdrawItem/>
-					<WithdrawItem/>
-					<Pagination count={10} shape="rounded" sx={{ alignSelf: 'center', justifySelf: 'flex-end' }} />
+					<Divider/>
+					{withdrawlist.map((item) =>(<WithdrawItem item={item}/>))}
+					<Pagination count={totalpage} shape="rounded" sx={{ alignSelf: 'center', justifySelf: 'flex-end' }} onChange={handleChange}/>
 				</Stack>
 			</Paper>
 		</Box>

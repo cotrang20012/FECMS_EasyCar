@@ -3,16 +3,18 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import { Avatar, Button, Paper, Stack, Typography } from '@mui/material';
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
+import numWithDot from 'utils/numWithDot';
 import './style.scss';
 
-function WithdrawItem() {
+function WithdrawItem(props) {
+	const {item} = props
 	const status = (status) => {
 		switch (status) {
-			case 'PENDING':
+			case 0:
 				return <span className="orange status">CHỜ DUYỆT</span>;
-			case 'ACCEPT':
+			case 1:
 				return <span className="green status">CHẤP NHẬN</span>;
-			case 'DECLINE':
+			case 2:
 				return <span className="red status">TỪ CHỐI</span>;
 		}
 	};
@@ -29,16 +31,16 @@ function WithdrawItem() {
 						<span className="bold">THÔNG TIN TÀI KHOẢN</span>
 					</Typography>
 					<Typography>
-						<span className="bold">E-mail:</span> annguyen@gmail.com
+						<span className="bold">E-mail:</span> {item.userId.email}
 					</Typography>
 					<Typography>
-						<span className="bold">Họ và Tên:</span> Nguyễn Phúc An
+						<span className="bold">Họ và Tên:</span> {item.userId.username}
 					</Typography>
 					<Typography>
-						<span className="bold">Số điện thoại:</span> 0928776640
+						<span className="bold">Số điện thoại:</span> {item.userId.phoneNumber}
 					</Typography>
 					<Typography>
-						<span className="bold">Trạng thái:</span> {status('ACCEPT')}
+						<span className="bold">Trạng thái:</span> {status(item.status)}
 					</Typography>
 				</Stack>
 				<Stack spacing={1} width="300px" justifyContent={'center'}>
@@ -46,17 +48,17 @@ function WithdrawItem() {
 						<span className="bold">THÔNG TIN NGÂN HÀNG</span>
 					</Typography>
 					<Typography>
-						<span className="bold">Tên tài khoản:</span> NGUYEN PHUC AN
+						<span className="bold">Tên tài khoản:</span> {item.userId.bankaccountname}
 					</Typography>
 					<Typography>
-						<span className="bold">Số tài khoản:</span> 123456789
+						<span className="bold">Số tài khoản:</span> {item.userId.banknumber}
 					</Typography>
 					<Typography>
-						<span className="bold">Ngân hàng:</span> VietinBank
+						<span className="bold">Ngân hàng:</span> {item.userId.bank}
 					</Typography>
 				</Stack>
 				<Stack flex={1} justifyContent={'center'} spacing={1}>
-					<Typography className="withdrawitem-container__money">190000 đ</Typography>
+					<Typography className="withdrawitem-container__money">{numWithDot(item.amount)} đ</Typography>
 					<Button
 						variant="outlined"
 						size="medium"

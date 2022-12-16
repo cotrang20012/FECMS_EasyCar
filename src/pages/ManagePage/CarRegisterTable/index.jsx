@@ -4,12 +4,38 @@ import {
 	Button, Divider, InputAdornment, Pagination, Paper, Stack,
 	TextField
 } from '@mui/material';
+import apiRegister from 'apis/apiRegister';
 import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
 import CarRegisterItem from './CarRegisterItem';
 import './style.scss';
+import * as React from 'react';
 
 function CarRegisterTable() {
+	const [registerlist, setRegisterlist] = React.useState([]);
+	const [page,setPage] = React.useState(1);
+	const [totalpage, setTotalpage] = React.useState(1);
+	const handleChange = (event, value) => {
+		setPage(value);
+	};
+
+	React.useEffect(() => {
+		const getRegisterList = () => {
+			const params = {
+				page: page
+			}
+			apiRegister.getRegisterList(params).then((result) => {
+				setRegisterlist(result.data)
+				if(result.totalPage != 0) {
+					setTotalpage(result.totalPage)
+				}
+			}).catch((err) => {
+				
+			});
+		}
+		getRegisterList();
+	},[page])
+
 	return (
 		<Box className="carregister-container">
 			<Paper elevation={3} sx={{ width: '100%', height: '100%' }}>
@@ -30,8 +56,8 @@ function CarRegisterTable() {
 						<Button variant="contained">TÌM KIẾM</Button>
 					</Stack>
 					<Divider />
-					<CarRegisterItem/>
-					<Pagination count={10} shape="rounded" sx={{ alignSelf: 'center', justifySelf: 'flex-end' }} />
+					{registerlist.map((item) =>(<CarRegisterItem item={item}/>))}
+					<Pagination count={totalpage} shape="rounded" sx={{ alignSelf: 'center', justifySelf: 'flex-end' }} onChange={handleChange} />
 				</Stack>
 			</Paper>
 		</Box>

@@ -35,7 +35,7 @@ function CarDetailDialog(props) {
     <Dialog open={openDialog} maxWidth="lg" fullWidth onClose={() => setOpenDialog(false)} className="caritem-container">
 			<DialogTitle>
 				<Typography fontSize="1.75rem" fontWeight="bold" align="center">
-					CHI TIẾT THÔNG TIN ĐĂNG KÝ XE
+					CHI TIẾT THÔNG TIN XE
 				</Typography>
 			</DialogTitle>
 			<DialogContent dividers="true">

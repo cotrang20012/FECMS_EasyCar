@@ -12,6 +12,10 @@ function App() {
 		axiosInstance(accessToken, dispatch);
 		axiosInstanceMultiPart(accessToken);
 	}
+	if (accessToken === '') {
+		axiosInstance('', dispatch);
+		axiosInstanceMultiPart('');
+	}
 	return (
 		<BrowserRouter>
 			<ConfigRoute />

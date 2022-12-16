@@ -8,9 +8,33 @@ import 'assets/style.scss';
 import variables from 'assets/_variable.scss';
 import './style.scss';
 import UserItem from './UserItem';
-
+import * as React from 'react';
+import apiUser from 'apis/apiUser';
 function UserTable() {
-	return (
+	const [userlist, setUserlist] = React.useState([]);
+	const [page,setPage] = React.useState(1);
+	const [totalpage, setTotalpage] = React.useState(1);
+	const handleChange = (event, value) => {
+		setPage(value);
+	};
+
+	React.useEffect(() => {
+		const getUserList = () => {
+			const params = {
+				page: page
+			}
+			apiUser.getUserList(params).then((result) => {
+				setUserlist(result.data)
+				if(result.totalPage != 0) {
+					setTotalpage(result.totalPage)
+				}
+			}).catch((err) => {
+				
+			});
+		}
+		getUserList();
+	},[page])
+	return ( 
 		<Box className="usertable-container">
 			<Paper elevation={3} sx={{ width: '100%', height: '100%' }}>
 				<Stack padding={2} spacing={1} >
@@ -30,10 +54,8 @@ function UserTable() {
                     <Button variant="contained">TÌM KIẾM</Button>
                     </Stack>
                     <Divider/>
-					<UserItem/>
-					<UserItem/>
-					<UserItem/>
-					<Pagination count={10} shape="rounded" sx={{alignSelf:'center', justifySelf:'flex-end'}}/>
+					{userlist.map((item) =>(<UserItem item={item}/>))}
+					<Pagination count={totalpage} shape="rounded" sx={{alignSelf:'center', justifySelf:'flex-end'}} onChange={handleChange} />
 				</Stack>
 			</Paper>
 		</Box>

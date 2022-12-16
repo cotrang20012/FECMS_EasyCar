@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { parse, stringify } from 'qs';
 const baseURL='http://localhost:5000/api';
-
+// const baseURL='https://be-easycar.vercel.app/api';
 export const axiosClient = axios.create({
     baseURL: baseURL,
     headers: {
@@ -22,13 +22,9 @@ const getRefreshToken = async (refreshToken) => {
 export const axiosClientWithTokenMultiPart = axios.create({
     baseURL: baseURL,
     headers: {
-        "Content-type": "multipart/form-data",
+        "Content-Type": "multipart/form-data",
     },
     withCredentials: true,
-    paramsSerializer: {
-        encode: parse,
-        serialize: stringify,
-      },
 });
 
 export const axiosClientWithToken = axios.create({
@@ -42,8 +38,6 @@ export const axiosClientWithToken = axios.create({
         serialize: stringify,
       },
 });
-
-
 
 var myInterceptor = null;
 export const axiosInstance = (accessToken, dispatch) => {

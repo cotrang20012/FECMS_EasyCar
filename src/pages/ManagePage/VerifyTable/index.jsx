@@ -5,21 +5,41 @@ import variables from 'assets/_variable.scss';
 import {
 	Box,
 	Button,
-	Dialog,
-	DialogContent,
-	DialogTitle,
 	Divider,
-	IconButton,
 	InputAdornment,
 	Stack,
 	TextField,
-	Typography,
 	Paper,
 	Pagination,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import VerifyItem from './VerifyItem';
+import apiVerify from 'apis/apiVerify';
 function VerifyTable() {
+	const [verifylist, setVerifylist] = React.useState([]);
+	const [page,setPage] = React.useState(1);
+	const [totalpage, setTotalpage] = React.useState(1);
+	const handleChange = (event, value) => {
+		setPage(value);
+	};
+
+	React.useEffect(() => {
+		const getVerifyList = () => {
+			const params = {
+				page: page
+			}
+			apiVerify.getVerifyList(params).then((result) => {
+				setVerifylist(result.data)
+				if(result.totalPage != 0) {
+					setTotalpage(result.totalPage)
+				}
+			}).catch((err) => {
+				
+			});
+		}
+		getVerifyList();
+	},[page])
+	
 	return (
 		<Box className="verifytable-container">
 			<Paper elevation={3} sx={{ width: '100%', height: '100%' }}>
@@ -40,8 +60,8 @@ function VerifyTable() {
 						<Button variant="contained">TÌM KIẾM</Button>
 					</Stack>
 					<Divider />
-					<VerifyItem />
-					<Pagination count={10} shape="rounded" sx={{ alignSelf: 'center', justifySelf: 'flex-end' }} />
+					{verifylist.map((item) =>(<VerifyItem item={item}/>))}
+					<Pagination count={totalpage} shape="rounded" sx={{ alignSelf: 'center', justifySelf: 'flex-end' }} onChange={handleChange}/>
 				</Stack>
 			</Paper>
 		</Box>

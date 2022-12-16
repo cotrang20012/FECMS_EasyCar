@@ -1,13 +1,14 @@
 import {  axiosClient,axiosClientWithToken, axiosClientWithTokenMultiPart} from "./axiosClient";
 
 const apiUser = {
-    updateUser: async (params) => {
-        const res = await axiosClientWithToken.post(`/user/update`,params)
+    getUserList: async (params) => {
+        const res = await axiosClientWithToken.get(`/admin/user-list?page=${params.page}`)
         return res.data;
     },
-    verifyUser: async (params) => {
-        const res = await axiosClientWithTokenMultiPart.post('/user/verify',params)
+
+    getUserDetail: async (params) => {
+        const res = await axiosClientWithToken.get(`/admin/detail-user/${params.id}`)
         return res.data;
-    }
+    },
 }
 export default apiUser;
