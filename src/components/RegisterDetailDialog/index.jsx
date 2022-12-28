@@ -139,7 +139,9 @@ function RegisterDetailDialog(props) {
 						<span className="title">Loại nhiên liệu:</span> {fuel(registerdata.fueltype)}
 					</Typography>
 					<Typography className="register-container__text">
-						<span className="title">Mô tả:</span> {registerdata.description}
+						<pre style={{ fontFamily: 'inherit' }}>
+							<span className="title">Mô tả:</span> {registerdata.description}
+						</pre>
 					</Typography>
 					<Typography className="register-container__text">
 						<pre style={{ fontFamily: 'inherit' }}>
