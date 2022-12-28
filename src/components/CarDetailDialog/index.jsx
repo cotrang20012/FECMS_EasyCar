@@ -118,7 +118,9 @@ function CarDetailDialog(props) {
 						<span className="title">Loại nhiên liệu:</span> {fuel(cardata.fueltype)}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<span className="title">Mô tả:</span> {cardata.description}
+						<pre style={{ fontFamily: 'inherit' }}>
+							<span className="title">Mô tả:</span> {cardata.description}
+						</pre>
 					</Typography>
 					<Typography className="caritem-container__text">
 						<pre style={{ fontFamily: 'inherit' }}>
