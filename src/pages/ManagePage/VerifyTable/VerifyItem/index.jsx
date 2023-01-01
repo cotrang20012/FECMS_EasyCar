@@ -14,7 +14,7 @@ function VerifyItem(props) {
 			<Stack sx={{ height: '164px' }} direction="row" padding={1} spacing={2}>
 				<Avatar
 					alt="Remy Sharp"
-					src="https://n1-astg.mioto.vn/g/2022/08/02/21/f4VeE-IlZhkA073LQ7xv_A.jpg"
+					src={item.userId.avatar}
 					sx={{ width: 80, height: 80, alignSelf: 'center' }}
 				/>
 				<Stack spacing={1} width="460px" justifyContent={'center'}>
