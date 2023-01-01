@@ -25,7 +25,7 @@ function VerifyItem(props) {
 						<span className="bold">E-mail:</span> {item.userId.email}
 					</Typography>
 					<Typography>
-						<span className="bold">Họ và Tên:</span> {item.userId.username}
+						<span className="bold">Họ và Tên:</span> {item.username}
 					</Typography>
 					<Typography>
 						<span className="bold">Số điện thoại:</span> {item.userId.phoneNumber}
