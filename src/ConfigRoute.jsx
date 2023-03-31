@@ -21,6 +21,7 @@ function ConfigRoute() {
         <Route path="carregister" element={<CarRegisterTable/>}/>
         <Route path="car" element={<CarTable/>}/>
         <Route path="withdraw" element={<WithdrawTable/>}/>
+        <Route path="report" element{}/>
       </Route>
     </Routes>
   );
