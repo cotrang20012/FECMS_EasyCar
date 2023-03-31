@@ -15,6 +15,7 @@ import CarRentalIcon from '@mui/icons-material/CarRental';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import ReportIcon from '@mui/icons-material/Report';
 import {setUserInfo} from 'slices/userSlice'
 import apiAuth from 'apis/apiAuth';
 import {useDispatch} from 'react-redux'
@@ -144,6 +145,20 @@ function Sidebar() {
 				startIcon={<AttachMoneyIcon/>}
 			>
 				YÊU CẦU RÚT TIỀN
+			</Button>
+			<Divider />
+			<Button
+				component={Link}
+				to="/dashboard/report"
+				size="medium"
+				className="sidebar-container__button"
+				sx={{
+					fontWeight: 'bold',
+					height: '45px',
+				}}
+				startIcon={<ReportIcon/>}
+			>
+				BÁO XẤU
 			</Button>
 			<Divider />
 			<Button
