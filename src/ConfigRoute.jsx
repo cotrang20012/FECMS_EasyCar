@@ -7,7 +7,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import ManagePage from "./pages/ManagePage";
 import SigninPage from "./pages/SigninPage";
-
+import ReportTable from "pages/ManagePage/ReportTable";
 
 function ConfigRoute() {
   return (
@@ -21,7 +21,7 @@ function ConfigRoute() {
         <Route path="carregister" element={<CarRegisterTable/>}/>
         <Route path="car" element={<CarTable/>}/>
         <Route path="withdraw" element={<WithdrawTable/>}/>
-        <Route path="report" element{}/>
+        <Route path="report" element={<ReportTable/>}/>
       </Route>
     </Routes>
   );

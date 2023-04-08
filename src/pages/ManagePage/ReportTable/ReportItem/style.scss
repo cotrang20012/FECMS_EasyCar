@@ -1,0 +1,23 @@
+@import '../../../../assets/variable';
+
+.reportitem-container {
+
+    &__details:hover {
+        color: white;
+        background-color: $text-green-color !important;
+        border-color: $text-green-color !important;
+    }
+
+    &__block:hover {
+        color: white;
+        background-color: $orange-color !important; 
+        border-color: $orange-color !important;
+    }
+
+    &__delete:hover {
+        color: white;
+        background-color: $red-color !important; 
+        border-color: $red-color !important;
+    }
+
+}

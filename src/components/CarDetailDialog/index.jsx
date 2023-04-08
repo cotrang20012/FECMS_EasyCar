@@ -11,7 +11,8 @@ import StarIcon from "@mui/icons-material/Star";
 import apiCar from 'apis/apiCar';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-
+import numWithDot from 'utils/numWithDot';
+import numWithSpace from 'utils/numWithSpace';
 function CarDetailDialog(props) {
     const { openDialog, setOpenDialog, id } = props;
 	const [cardata, setCardata] = React.useState({});
@@ -87,11 +88,15 @@ function CarDetailDialog(props) {
 					</Typography>
 					<Typography className="caritem-container__tilte">THÔNG TIN XE</Typography>
                     <Typography className="caritem-container__text">
-						<span className="title">Đánh giá:</span> {cardata.rating}<StarIcon
-                      htmlColor={variables.mainyellowcolor}
-                      fontSize="medium"
-                      className="caritem-container__icon"
-                    />
+						<span className="title">Đánh giá:</span> {cardata.rating}
+						<StarIcon
+							htmlColor={variables.mainyellowcolor}
+							fontSize="medium"
+							className="caritem-container__icon"
+						/>
+					</Typography>
+					<Typography className="caritem-container__text">
+						<span className="title">Giá thuê xe:</span> {cardata.rentprice && numWithDot(cardata.rentprice)} đ /ngày
 					</Typography>
 					<Typography className="caritem-container__text">
 						<span className="title">Biển số xe:</span> {cardata.licenseplate}
@@ -118,12 +123,12 @@ function CarDetailDialog(props) {
 						<span className="title">Loại nhiên liệu:</span> {fuel(cardata.fueltype)}
 					</Typography>
 					<Typography className="caritem-container__text">
-						<pre style={{ fontFamily: 'inherit' }}>
+						<pre style={{ fontFamily: 'inherit', margin:0, }}>
 							<span className="title">Mô tả:</span> {cardata.description}
 						</pre>
 					</Typography>
 					<Typography className="caritem-container__text">
-						<pre style={{ fontFamily: 'inherit' }}>
+						<pre style={{ fontFamily: 'inherit', margin:0, }}>
 							<span className="title">Điều khoản thuê xe:</span>
 							{cardata.rentterm}
 						</pre>

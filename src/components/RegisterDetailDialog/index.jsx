@@ -11,6 +11,8 @@ import './style.scss';
 import * as React from 'react';
 import apiRegister from 'apis/apiRegister';
 import { toast } from 'react-toastify';
+import numWithDot from 'utils/numWithDot';
+import numWithSpace from 'utils/numWithSpace';
 
 function RegisterDetailDialog(props) {
 	const { openDialog, setOpenDialog, id } = props;
@@ -114,6 +116,9 @@ function RegisterDetailDialog(props) {
 						<span className="title">Địa chỉ:</span> {registerdata.ownerId && registerdata.ownerId.location}
 					</Typography>
 					<Typography className="register-container__tilte">THÔNG TIN XE</Typography>
+					<Typography className="caritem-container__text">
+						<span className="title">Giá thuê xe:</span> {registerdata.rentprice && numWithDot(registerdata.rentprice)} đ /ngày
+					</Typography>
 					<Typography className="register-container__text">
 						<span className="title">Biển số xe:</span> {registerdata.licenseplate}
 					</Typography>
@@ -139,12 +144,12 @@ function RegisterDetailDialog(props) {
 						<span className="title">Loại nhiên liệu:</span> {fuel(registerdata.fueltype)}
 					</Typography>
 					<Typography className="register-container__text">
-						<pre style={{ fontFamily: 'inherit' }}>
+						<pre style={{ fontFamily: 'inherit', margin:0, }}>
 							<span className="title">Mô tả:</span> {registerdata.description}
 						</pre>
 					</Typography>
 					<Typography className="register-container__text">
-						<pre style={{ fontFamily: 'inherit' }}>
+						<pre style={{ fontFamily: 'inherit', margin:0, }}>
 							<span className="title">Điều khoản thuê xe:</span>
 							{registerdata.rentterm}
     					</pre> 

@@ -1,1 +1,11 @@
 @import '../../../assets/variable';
+
+.reporttable-container {
+    height: 690px;
+    width: 1000px;
+    margin-left: 100px;
+
+    &__findfield {
+        width: 862px;
+    }
+}
