@@ -79,8 +79,8 @@ function WithdrawItem(props) {
 							setOpenConfirmDialog(true)
 						}}
 						sx={{
-							borderColor: variables.orangecolor,
-							color: variables.orangecolor,
+							borderColor: variables.redcolor,
+							color: variables.redcolor,
 							fontWeight: 'bold',
 							width: '150px ',
 							alignSelf: 'center',

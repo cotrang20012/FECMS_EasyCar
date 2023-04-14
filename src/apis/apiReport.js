@@ -2,14 +2,24 @@ import axios from "axios";
 import {  axiosClient,axiosClientWithToken} from "./axiosClient";
 
 const apiReport = {
-    login: async (params) => {
-        const res = await axiosClient.post(`/auth/login-admin`,params)
+    getReportList: async (params) => {
+        const res = await axiosClientWithToken.get(`/admin/report-list?page=${params.page}`)
         return res.data;
     },
-    getuserinfo: async(params) => {
-        const res = await axiosClientWithToken.get(`/user/`,params)
+
+    getReportDetail: async (params) => {
+        const res = await axiosClientWithToken.get(`/admin/report-detail/${params.id}`)
+        return res.data;
+    },
+
+    acceptReport: async(params) => {
+        const res = await axiosClientWithToken.post(`/admin/accept-report/${params.id}`)
         return res.data
     },
 
+    denyReport: async(params) => {
+        const res = await axiosClientWithToken.post(`/admin/deny-report/${params.id}`)
+        return res.data
+    },
 }
 export default apiReport;

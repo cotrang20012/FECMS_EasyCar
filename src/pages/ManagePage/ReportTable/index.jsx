@@ -5,7 +5,7 @@ import variables from 'assets/_variable.scss';
 import './style.scss';
 import * as React from 'react';
 import ReportItem from './ReportItem';
-
+import apiReport from 'apis/apiReport';
 
 function ReportTable() {
 	const [reportlist, setReportlist] = React.useState([]);
@@ -20,7 +20,14 @@ function ReportTable() {
 			const params = {
 				page: page
 			}
-			
+			apiReport.getReportList(params).then((result) => {
+				setReportlist(result.data.data)
+				if(result.data.totalPage != 0) {
+					setTotalpage(result.data.totalPage)
+				}
+			}).catch((err) => {
+				
+			});
 		}
 		getReportList();
 	},[page])
@@ -45,13 +52,8 @@ function ReportTable() {
 						<Button variant="contained">TÌM KIẾM</Button>
 					</Stack>
 					<Divider />
-                    <ReportItem/>
-					<Pagination
-						count={totalpage}
-						shape="rounded"
-						sx={{ alignSelf: 'center', justifySelf: 'flex-end' }}
-						onChange={handleChange}
-					/>
+					{reportlist.map((item) =>(<ReportItem item={item} />))}
+					<Pagination count={totalpage} shape="rounded" sx={{ alignSelf: 'center', justifySelf: 'flex-end' }} onChange={handleChange}/>
 				</Stack>
 			</Paper>
 		</Box>

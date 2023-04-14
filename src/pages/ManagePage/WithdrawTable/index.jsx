@@ -52,7 +52,6 @@ function WithdrawTable() {
 						></TextField>
 						<Button variant="contained">TÌM KIẾM</Button>
 					</Stack>
-					<Divider />
 					<Stack direction={'row'} spacing={1}>
 					<Chip label="TẤT CẢ"  sx={{bgcolor:variables.mainlightercolor, color:'white',fontWeight:'bold'}}/>
 					<Chip label="CHẤP NHẬN" sx={{bgcolor:variables.textgreencolor, color:'white',fontWeight:'bold'}}  />

@@ -20,16 +20,16 @@ function ReportItem(props) {
 						<span className="bold">THÔNG TIN XE</span>
 					</Typography>
 					<Typography>
-						<span className="bold">Biển số xe:</span> 59A-123.45
+						<span className="bold">Biển số xe:</span> {item.vehicleId.licenseplate}
 					</Typography>
 					<Typography>
-						<span className="bold">Hãng xe:</span> KIA
+						<span className="bold">Hãng xe:</span> {item.vehicleId.brand}
 					</Typography>
 					<Typography>
-						<span className="bold">Mẫu xe:</span> Sportage
+						<span className="bold">Mẫu xe:</span> {item.vehicleId.model}
 					</Typography>
 					<Typography>
-						<span className="bold">Năm sản xuất:</span> 2021
+						<span className="bold">Năm sản xuất:</span> {item.vehicleId.year}
 					</Typography>
 				</Stack>
 				<Divider orientation="vertical" />
@@ -38,13 +38,13 @@ function ReportItem(props) {
 						<span className="bold">THÔNG TIN CHỦ XE</span>
 					</Typography>
 					<Typography>
-						<span className="bold">E-mail:</span> khoa9205141@gmail.com
+						<span className="bold">E-mail:</span> {item.vehicleId.ownerId.email}
 					</Typography>
 					<Typography>
-						<span className="bold">Họ và Tên:</span> Bành Đăng Khoa
+						<span className="bold">Họ và Tên:</span> {item.vehicleId.ownerId.username}
 					</Typography>
 					<Typography>
-						<span className="bold">Số điện thoại:</span> 0907893960
+						<span className="bold">Số điện thoại:</span> {item.vehicleId.ownerId.phoneNumber}
 					</Typography>
 				</Stack>
                 <Divider orientation="vertical" />
@@ -53,13 +53,13 @@ function ReportItem(props) {
 						<span className="bold">NGƯỜI BÁO CÁO</span>
 					</Typography>
 					<Typography>
-						<span className="bold">E-mail:</span> khoa9205141@gmail.com
+						<span className="bold">E-mail:</span> {item.userId.email}
 					</Typography>
 					<Typography>
-						<span className="bold">Họ và Tên:</span> Bành Đăng Khoa
+						<span className="bold">Họ và Tên:</span> {item.userId.username}
 					</Typography>
 					<Typography>
-						<span className="bold">Số điện thoại:</span> 0907893960
+						<span className="bold">Số điện thoại:</span> {item.userId.phoneNumber}
 					</Typography>
 				</Stack>
 				<Stack flex={1} justifyContent={'center'} spacing={1}>
@@ -80,7 +80,7 @@ function ReportItem(props) {
 					</Button>
 				</Stack>
 			</Stack>
-			{openDialog && <ReportDetailDialog openDialog={openDialog} setOpenDialog={setOpenDialog}/>}
+			{openDialog && <ReportDetailDialog openDialog={openDialog} setOpenDialog={setOpenDialog} id={item._id}/>}
 		</Paper>
 	);
 }
