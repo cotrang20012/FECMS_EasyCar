@@ -2,7 +2,7 @@ import {  axiosClient,axiosClientWithToken, axiosClientWithTokenMultiPart} from 
 
 const apiWithdraw = {
     getWithdrawList: async (params) => {
-        const res = await axiosClientWithToken.get(`/admin/withdraw-list?page=${params.page}`)
+        const res = await axiosClientWithToken.post(`/admin/withdraw-list?page=${params.page}`,params)
         return res.data;
     },
 

@@ -3,7 +3,7 @@ import {  axiosClient,axiosClientWithToken} from "./axiosClient";
 
 const apiReport = {
     getReportList: async (params) => {
-        const res = await axiosClientWithToken.get(`/admin/report-list?page=${params.page}`)
+        const res = await axiosClientWithToken.post(`/admin/report-list?page=${params.page}`,params)
         return res.data;
     },
 

@@ -12,6 +12,28 @@ function WithdrawTable() {
 	const [withdrawlist, setWithdrawlist] = React.useState([]);
 	const [page,setPage] = React.useState(1);
 	const [totalpage, setTotalpage] = React.useState(1);
+	const [option, setOption] = React.useState([
+		{
+			id: 1,
+			value: 0,
+			selected: true,
+		},
+		{
+			id: 2,
+			value: 1,
+			selected: false,
+		},
+		{
+			id: 3,
+			value: 2,
+			selected: false,
+		},
+		{
+			id: 4,
+			value: 'ALL',
+			selected: false,
+		},
+	]);
 	const handleChange = (event, value) => {
 		setPage(value);
 	};
@@ -19,7 +41,8 @@ function WithdrawTable() {
 	React.useEffect(() => {
 		const getWithdrawList = () => {
 			const params = {
-				page: page
+				page: page,
+				option: option,
 			}
 
 			apiWithdraw.getWithdrawList(params).then((result) => {
@@ -32,7 +55,21 @@ function WithdrawTable() {
 			});
 		}
 		getWithdrawList();
-	},[page])
+	},[page,option])
+
+	const handleOptionSelected = (id) => {
+		let newOption = [...option];
+		newOption.forEach((item) => (item.selected = false));
+		let index = newOption.findIndex((item) => item.id === id);
+		if (index >= 0) {
+			newOption[index] = {
+				...newOption[index],
+				selected: !newOption[index].selected,
+			};
+			setOption(newOption);
+			setPage(1);
+		}
+	};
 	return (
 		<Box className="withdrawtable-container">
 			<Paper elevation={3} sx={{ width: '100%', height: '100%' }}>
@@ -53,10 +90,10 @@ function WithdrawTable() {
 						<Button variant="contained">TÌM KIẾM</Button>
 					</Stack>
 					<Stack direction={'row'} spacing={1}>
-					<Chip label="TẤT CẢ"  sx={{bgcolor:variables.mainlightercolor, color:'white',fontWeight:'bold'}}/>
-					<Chip label="CHẤP NHẬN" sx={{bgcolor:variables.textgreencolor, color:'white',fontWeight:'bold'}}  />
-					<Chip label="CHỜ DUYỆT" sx={{bgcolor:variables.orangecolor, color:'white',fontWeight:'bold'}} />
-					<Chip label="TỪ CHỐI"  sx={{bgcolor:variables.redcolor, color:'white',fontWeight:'bold'}}/>
+					<Chip label="TẤT CẢ"  sx={{bgcolor:variables.mainlightercolor, color:'white',fontWeight:'bold'}} onClick={() => handleOptionSelected(4)}/>
+					<Chip label="CHẤP NHẬN" sx={{bgcolor:variables.textgreencolor, color:'white',fontWeight:'bold'}}  onClick={() => handleOptionSelected(2)}/>
+					<Chip label="CHỜ DUYỆT" sx={{bgcolor:variables.orangecolor, color:'white',fontWeight:'bold'}} onClick={() => handleOptionSelected(1)}/>
+					<Chip label="TỪ CHỐI"  sx={{bgcolor:variables.redcolor, color:'white',fontWeight:'bold'}} onClick={() => handleOptionSelected(3)}/>
 					</Stack>
 					<Divider/>
 					{withdrawlist.map((item) =>(<WithdrawItem item={item}/>))}
