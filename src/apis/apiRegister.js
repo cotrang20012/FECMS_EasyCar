@@ -2,7 +2,7 @@ import {  axiosClient,axiosClientWithToken, axiosClientWithTokenMultiPart} from 
 
 const apiRegister = {
     getRegisterList: async (params) => {
-        const res = await axiosClientWithToken.get(`/admin/vehicle-register-list?page=${params.page}`)
+        const res = await axiosClientWithToken.post(`/admin/vehicle-register-list?page=${params.page}`,params)
         return res.data;
     },
 

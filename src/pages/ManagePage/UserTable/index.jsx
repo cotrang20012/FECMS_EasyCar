@@ -14,6 +14,7 @@ function UserTable() {
 	const [userlist, setUserlist] = React.useState([]);
 	const [page,setPage] = React.useState(1);
 	const [totalpage, setTotalpage] = React.useState(1);
+	const [query, setQuery] = React.useState("");
 	const handleChange = (event, value) => {
 		setPage(value);
 	};
@@ -21,7 +22,8 @@ function UserTable() {
 	React.useEffect(() => {
 		const getUserList = () => {
 			const params = {
-				page: page
+				page: page,
+				query: query,
 			}
 			apiUser.getUserList(params).then((result) => {
 				setUserlist(result.data)
@@ -34,6 +36,25 @@ function UserTable() {
 		}
 		getUserList();
 	},[page])
+
+	const handleFind = () => {
+		setPage(1);
+		const params = {
+			page: 1,
+			query: query,
+		}
+		apiUser.getUserList(params).then((result) => {
+			setUserlist(result.data)
+			if(result.totalPage != 0) {
+				setTotalpage(result.totalPage)
+			} else {
+				setTotalpage(1)
+			}
+		}).catch((err) => {
+			
+		});
+	}
+
 	return ( 
 		<Box className="usertable-container">
 			<Paper elevation={3} sx={{ width: '100%', height: '100%' }}>
@@ -42,7 +63,9 @@ function UserTable() {
                     <TextField
 						size="small"
 						className="usertable-container__findfield"
-                        placeholder='Nhập vào số điện thoại, họ tên, email...'
+                        placeholder='Nhập vào số điện thoại, họ tên, email, địa chỉ'
+						value={query}
+						onChange={(event) => setQuery(event.target.value)}
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
@@ -51,7 +74,7 @@ function UserTable() {
 							),
 						}}
 					></TextField>
-                    <Button variant="contained">TÌM KIẾM</Button>
+                    <Button variant="contained" onClick={handleFind}>TÌM KIẾM</Button>
                     </Stack>
                     <Divider/>
 					{userlist.map((item) =>(<UserItem item={item}/>))}

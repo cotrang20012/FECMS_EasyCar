@@ -2,7 +2,7 @@ import {  axiosClient,axiosClientWithToken, axiosClientWithTokenMultiPart} from 
 
 const apiUser = {
     getUserList: async (params) => {
-        const res = await axiosClientWithToken.get(`/admin/user-list?page=${params.page}`)
+        const res = await axiosClientWithToken.post(`/admin/user-list?page=${params.page}`,params)
         return res.data;
     },
 

@@ -2,7 +2,7 @@ import {  axiosClient,axiosClientWithToken, axiosClientWithTokenMultiPart} from 
 
 const apiVerify = {
     getVerifyList: async (params) => {
-        const res = await axiosClientWithToken.get(`/admin/verify-list?page=${params.page}`)
+        const res = await axiosClientWithToken.post(`/admin/verify-list?page=${params.page}`,params)
         return res.data;
     },
     getVerifyDetail: async (params) => {

@@ -19,6 +19,7 @@ function VerifyTable() {
 	const [verifylist, setVerifylist] = React.useState([]);
 	const [page,setPage] = React.useState(1);
 	const [totalpage, setTotalpage] = React.useState(1);
+	const [query, setQuery] = React.useState("");
 	const handleChange = (event, value) => {
 		setPage(value);
 	};
@@ -26,7 +27,8 @@ function VerifyTable() {
 	React.useEffect(() => {
 		const getVerifyList = () => {
 			const params = {
-				page: page
+				page: page,
+				query: query,
 			}
 			apiVerify.getVerifyList(params).then((result) => {
 				setVerifylist(result.data)
@@ -40,6 +42,24 @@ function VerifyTable() {
 		getVerifyList();
 	},[page])
 	
+	const handleFind = () => {
+		setPage(1);
+		const params = {
+			page: 1,
+			query: query,
+		}
+		apiVerify.getVerifyList(params).then((result) => {
+			setVerifylist(result.data)
+			if(result.totalPage != 0) {
+				setTotalpage(result.totalPage)
+			} else {
+				setTotalpage(1)
+			}
+		}).catch((err) => {
+			
+		});
+	}
+
 	return (
 		<Box className="verifytable-container">
 			<Paper elevation={3} sx={{ width: '100%', height: '100%' }}>
@@ -48,7 +68,9 @@ function VerifyTable() {
 						<TextField
 							size="small"
 							className="verifytable-container__findfield"
-							placeholder="Nhập vào số điện thoại, họ tên, email, số GPLX,..."
+							placeholder="Nhập vào họ tên, số GPLX"
+							value={query}
+							onChange={(event) => setQuery(event.target.value)}
 							InputProps={{
 								startAdornment: (
 									<InputAdornment position="start">
@@ -57,7 +79,7 @@ function VerifyTable() {
 								),
 							}}
 						></TextField>
-						<Button variant="contained">TÌM KIẾM</Button>
+						<Button variant="contained" onClick={handleFind}>TÌM KIẾM</Button>
 					</Stack>
 					<Divider />
 					{verifylist.map((item) =>(<VerifyItem item={item}/>))}

@@ -14,6 +14,7 @@ function CarTable() {
 	const [carlist, setCarlist] = React.useState([]);
 	const [page,setPage] = React.useState(1);
 	const [totalpage, setTotalpage] = React.useState(1);
+	const [query, setQuery] = React.useState("");
 	const handleChange = (event, value) => {
 		setPage(value);
 	};
@@ -21,7 +22,8 @@ function CarTable() {
 	React.useEffect(() => {
 		const getCarList = () => {
 			const params = {
-				page: page
+				page: page,
+				query: query,
 			}
 			apiCar.getCarList(params).then((result) => {
 				setCarlist(result.data)
@@ -34,6 +36,25 @@ function CarTable() {
 		}
 		getCarList();
 	},[page])
+
+	const handleFind = () => {
+		setPage(1);
+		const params = {
+			page: 1,
+			query: query,
+		}
+		apiCar.getCarList(params).then((result) => {
+			setCarlist(result.data)
+			if(result.totalPage != 0) {
+				setTotalpage(result.totalPage)
+			} else {
+				setTotalpage(1)
+			}
+		}).catch((err) => {
+			
+		});
+	}
+
   return (
     <Box className="cartable-container">
 			<Paper elevation={3} sx={{ width: '100%', height: '100%' }}>
@@ -42,7 +63,9 @@ function CarTable() {
 						<TextField
 							size="small"
 							className="cartable-container__findfield"
-							placeholder="Nhập vào số điện thoại, họ tên, email, số GPLX,..."
+							placeholder="Nhập vào hãng, mẫu xe, kiểu xe, biển số xe"
+							value={query}
+							onChange={(event) => setQuery(event.target.value)}
 							InputProps={{
 								startAdornment: (
 									<InputAdornment position="start">
@@ -51,7 +74,7 @@ function CarTable() {
 								),
 							}}
 						></TextField>
-						<Button variant="contained">TÌM KIẾM</Button>
+						<Button variant="contained" onClick={handleFind}>TÌM KIẾM</Button>
 					</Stack>
 					<Divider />
 					{carlist.map((item) =>(<CarItem item={item}/>))}

@@ -2,7 +2,7 @@ import {  axiosClient,axiosClientWithToken, axiosClientWithTokenMultiPart} from 
 
 const apiCar = {
     getCarList: async (params) => {
-        const res = await axiosClientWithToken.get(`/admin/vehicle-list?page=${params.page}`)
+        const res = await axiosClientWithToken.post(`/admin/vehicle-list?page=${params.page}`,params)
         return res.data;
     },
 
